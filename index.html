@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Plantix - Your Pocket Plant Doctor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Welcome/Onboarding Page -->
+    <div id="welcomePage" class="page active">
+        <div class="container">
+            <div class="welcome-section">
+                <h1>🌱 Welcome to Plantix</h1>
+                <p class="tagline">Your Pocket Plant Doctor</p>
+            </div>
+
+            <div class="slideshow-container">
+                <div class="slide active">
+                    <div class="slide-icon">🔍</div>
+                    <h3>AI Detects Crop Diseases Instantly</h3>
+                    <p>Upload a photo of your crop and our AI instantly identifies diseases and health issues.</p>
+                </div>
+                <div class="slide">
+                    <div class="slide-icon">💊</div>
+                    <h3>Get Treatment & Fertilizer Recommendations</h3>
+                    <p>Receive detailed treatment plans and fertilizer suggestions tailored to your crop's needs.</p>
+                </div>
+                <div class="slide">
+                    <div class="slide-icon">📊</div>
+                    <h3>Track Crop Health & Watering</h3>
+                    <p>Monitor your crops' health over time and get watering reminders for optimal growth.</p>
+                </div>
+            </div>
+
+            <div class="slide-dots">
+                <span class="dot active-dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+
+            <button class="btn-primary" onclick="showLoginPage()">Get Started →</button>
+        </div>
+    </div>
+
+    <!-- Login/Signup Page -->
+    <div id="loginPage" class="page">
+        <div class="container">
+            <div class="form-container">
+                <h2>🌿 Welcome Back</h2>
+                <p class="form-subtitle">Sign in to continue to Plantix</p>
+
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required placeholder="farmer@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required placeholder="••••••••">
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-block">Login</button>
+                </form>
+
+                <div class="form-footer">
+                    <p>Don't have an account? <a href="#" onclick="showSignupForm()">Sign up</a></p>
+                </div>
+            </div>
+
+            <div class="signup-container" style="display: none;">
+                <h2>🌱 Create Account</h2>
+                <p class="form-subtitle">Join Plantix today</p>
+
+                <form id="signupForm" onsubmit="handleSignup(event)">
+                    <div class="form-group">
+                        <label for="signupName">Full Name</label>
+                        <input type="text" id="signupName" required placeholder="John Doe">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupEmail">Email Address</label>
+                        <input type="email" id="signupEmail" required placeholder="farmer@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupFarm">Farm Location</label>
+                        <input type="text" id="signupFarm" required placeholder="City, State">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" required placeholder="••••••••">
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-block">Sign Up</button>
+                </form>
+
+                <div class="form-footer">
+                    <p>Already have an account? <a href="#" onclick="showLoginForm()">Sign in</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboardPage" class="page">
+        <div class="dashboard-container">
+            <div class="main-content">
+                <div class="upload-section">
+                    <h2>🔬 Analyze Your Crop</h2>
+                    <div class="upload-area">
+                        <input type="file" id="leafImage" accept="image/*" style="display: none;">
+                        <div class="upload-placeholder" onclick="document.getElementById('leafImage').click()">
+                            <div class="upload-icon">📸</div>
+                            <p>Click to upload leaf photo</p>
+                            <small>Supports JPG, PNG, JPEG</small>
+                        </div>
+                        <img id="previewImage" style="display: none; max-width: 100%; border-radius: 12px; margin-top: 10px;">
+                    </div>
+                    
+                    <button class="btn-primary" onclick="analyzeLeaf()">🔍 Analyze Now</button>
+
+                    <div class="result-section" id="resultSection" style="display: none;">
+                        <h3>📋 Analysis Results</h3>
+                        <div class="result-card">
+                            <p><strong>🌿 Disease Name:</strong> <span id="diseaseName">-</span></p>
+                            <p><strong>💊 Recommendations:</strong> <span id="recommendations">-</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="history-section">
+                    <h3>📜 Recent Scans</h3>
+                    <div id="scanHistory" class="scan-cards">
+                        <!-- Scan cards will be added here dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-navbar">
+                <button class="nav-btn" onclick="showWelcomePage()">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-label">Home</span>
+                </button>
+                <button class="nav-btn active" onclick="showDashboardPage()">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-label">Dashboard</span>
+                </button>
+                <button class="nav-btn" onclick="showAccountPage()">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-label">Account</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Page -->
+    <div id="accountPage" class="page">
+        <div class="dashboard-container">
+            <div class="main-content">
+                <div class="profile-section">
+                    <div class="profile-header">
+                        <div class="profile-avatar">👨‍🌾</div>
+                        <h2>My Account</h2>
+                    </div>
+
+                    <div class="profile-info">
+                        <div class="info-card">
+                            <div class="info-label">👤 Full Name</div>
+                            <div class="info-value" id="profileName">-</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-label">📍 Farm Location</div>
+                            <div class="info-value" id="profileLocation">-</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-label">📧 Email Address</div>
+                            <div class="info-value" id="profileEmail">-</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-label">📅 Member Since</div>
+                            <div class="info-value" id="profileDate">-</div>
+                        </div>
+                    </div>
+
+                    <div class="profile-actions">
+                        <button class="btn-secondary" onclick="showSettings()">⚙️ Settings</button>
+                        <button class="btn-danger" onclick="handleLogout()">🚪 Logout</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-navbar">
+                <button class="nav-btn" onclick="showWelcomePage()">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-label">Home</span>
+                </button>
+                <button class="nav-btn" onclick="showDashboardPage()">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-label"><a href="dashboard.html">Dashboard</a></span>
+                </button>
+                <button class="nav-btn active" onclick="showAccountPage()">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-label">Account</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
